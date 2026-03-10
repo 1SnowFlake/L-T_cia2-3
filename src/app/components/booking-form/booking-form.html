@@ -1,0 +1,33 @@
+<div class="booking-container">
+  <h2>Book Your Trip (Package #{{ packageId }})</h2>
+
+  <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Number of Passengers</mat-label>
+      <input matInput type="number" formControlName="passengers">
+      @if (bookingForm.get('passengers')?.invalid && bookingForm.get('passengers')?.touched) {
+        <mat-error>Must be between 1 and 10 passengers.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Booking Date</mat-label>
+      <input matInput type="date" formControlName="bookingDate">
+      @if (bookingForm.get('bookingDate')?.invalid && bookingForm.get('bookingDate')?.touched) {
+        <mat-error>Booking date is required.</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Special Requests</mat-label>
+      <textarea matInput formControlName="specialRequests" placeholder="E.g., Dietary restrictions"></textarea>
+    </mat-form-field>
+
+    <div class="form-actions">
+      <button mat-button type="button" (click)="cancel()">Cancel</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="bookingForm.invalid">Submit Booking</button>
+    </div>
+
+  </form>
+</div>

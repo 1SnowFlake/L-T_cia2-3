@@ -1,0 +1,36 @@
+.trip-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.trip-card {
+  img {
+    height: 200px;
+    object-fit: cover;
+  }
+}
+
+.trip-card {
+  border: 1px solid #a8a7a7; /* Thin border instead of shadow */
+  border-radius: 8px;
+  background: #ffffff;
+  transition: border-color 0.3s;
+
+  &:hover {
+    border-color: #188e69; /* Highlight border on hover */
+  }
+}
+
+.price {
+  color: #027709; /* Simple forest green for money */
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* Material buttons customization */
+.mat-mdc-raised-button.mat-accent {
+  background-color: #00838f !important; /* Teal button */
+  color: white !important;
+}

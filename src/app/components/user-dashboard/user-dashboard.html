@@ -1,0 +1,42 @@
+<div class="container" style="padding: 20px;">
+  <h1>My Booked Tickets </h1>
+
+  @if (myTickets$ | async; as tickets) {
+    @if (tickets.length > 0) {
+      @for (ticket of tickets; track ticket.id) {
+        <mat-card style="margin-bottom: 15px; padding: 15px; display: flex; flex-direction: row; align-items: center;">
+          <!-- Using placeholder image or we'd fetch package details in a real app to show destination image -->
+          <div style="width: 100px; height: 60px; background: #e0e0e0; border-radius: 8px; margin-right: 20px; display: flex; align-items: center; justify-content: center;">
+             <mat-icon style="color: gray;">flight</mat-icon>
+          </div>
+          <div>
+            <h3 style="margin: 0;">Package #{{ ticket.packageId }}</h3>
+            <p style="margin: 0; color: gray;">Confirmed on: {{ ticket.bookingDate | date }} for {{ ticket.passengers }} passengers</p>
+          </div>
+          <span style="flex: 1 1 auto;"></span>
+          <h2 style="color: #00838f;">{{ ticket.totalPrice | currency:'INR' }}</h2>
+          <button mat-icon-button color="warn" (click)="deleteBooking(ticket.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card>
+      }
+
+      <div class="total-summary">
+        <hr>
+        <div class="total-row">
+          <h2><span>Total Amount: </span>
+          <span class="total-amount">{{ getTotalCost(tickets) | currency:'INR' }}</span></h2>
+        </div>
+        <button 
+          mat-raised-button 
+          (click)="onCheckout()">
+          PROCEED TO CHECKOUT
+        </button>    
+      </div>
+    } @else {
+      <p>No adventures booked yet!</p>
+    }
+  } @else {
+    <p>Loading your tickets...</p>
+  }
+</div>

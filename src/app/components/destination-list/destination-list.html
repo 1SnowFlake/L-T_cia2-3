@@ -1,0 +1,32 @@
+<div class="container">
+  <h2>Featured Destinations</h2>
+  
+  <div style="margin-bottom: 20px;">
+    <mat-form-field appearance="outline" style="width: 100%; max-width: 400px;">
+      <mat-label>Search basically anywhere...</mat-label>
+      <input matInput [(ngModel)]="searchText" placeholder="E.g., Japan, Paris">
+    </mat-form-field>
+  </div>
+
+  <div class="trip-grid">
+    @if (destinations$ | async; as destinations) {
+      @for (dest of destinations | filter:searchText; track dest.id) {
+        <mat-card class="trip-card" appHighlight>
+          <img mat-card-image [src]="dest.imageUrl" [alt]="dest.name">
+          <mat-card-header>
+            <mat-card-title>{{ dest.name }}</mat-card-title>
+            <mat-card-subtitle>{{ dest.country }}</mat-card-subtitle>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{ dest.description }}</p>
+          </mat-card-content>
+          <mat-card-actions>
+            <button mat-raised-button color="accent" [routerLink]="['/package', dest.id]">EXPLORE</button>
+          </mat-card-actions>
+        </mat-card>
+      }
+    } @else {
+      <p>Loading destinations...</p>
+    }
+  </div>
+</div>
